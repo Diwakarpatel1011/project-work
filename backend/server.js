@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 5000;
 // ✅ Allow only your frontend
 app.use(cors({
   origin: [
-    'https://diwak.netlify.app/',
+    'https://diwak.netlify.app',
     'http://localhost:3000'
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
