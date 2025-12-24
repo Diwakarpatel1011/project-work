@@ -22,7 +22,7 @@ const App = () => {
 
   const fetchLeads = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/leads');
+      const response = await fetch('http://localhost:5000/api/leads'||"https://project-work-lemon.vercel.app/");
       const result = await response.json();
       if (result.success) {
         setLeads(result.data);
@@ -50,7 +50,7 @@ const App = () => {
       }
 
       const response = await fetch(
-        'http://localhost:5000/api/leads/process',
+        'http://localhost:5000/api/leads/process'||"https://project-work-lemon.vercel.app/",
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
