@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+const API = import.meta.env.VITE_API_URL;
 
 const App = () => {
   const [names, setNames] = useState('');
@@ -22,7 +23,7 @@ const App = () => {
 
   const fetchLeads = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/leads'||"https://project-work-lemon.vercel.app/");
+      const response = await fetch(`${API}/api/leads`);
       const result = await response.json();
       if (result.success) {
         setLeads(result.data);
@@ -49,8 +50,7 @@ const App = () => {
         return;
       }
 
-      const response = await fetch(
-        'http://localhost:5000/api/leads/process'||"https://project-work-lemon.vercel.app/",
+      const response = await fetch(`${API}/api/leads/process`,
         {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
