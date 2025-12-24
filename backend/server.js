@@ -9,28 +9,38 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-// Middleware
-app.use(cors());
+// ✅ Allow only your frontend
+app.use(cors({
+  origin: [
+    'https://keen-daifuku-3fb5e0.netlify.app',
+    'http://localhost:3000'
+  ],
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  credentials: true
+}));
+
 app.use(express.json());
 
 // Routes
 app.get("/", (req, res) => {
   res.send("Backend running successfully 🚀");
 });
+
 app.use('/api/leads', require('./routes/leads'));
 
-
-// Connect to MongoDB
-mongoose.connect(process.env.MONGO_URI || 'mongodb+srv://rk4765505:Knb3QJ4YMEZZSjyV@cluster0.etpxc.mongodb.net/business-auth', {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-})
+// MongoDB connect
+mongoose.connect(
+  process.env.MONGO_URI || 'mongodb+srv://rk4765505:Knb3QJ4YMEZZSjyV@cluster0.etpxc.mongodb.net/business-auth',
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  }
+)
 .then(() => {
   console.log('Connected to MongoDB');
-  
-  // Start the cron job
+
   cron.start();
-  
+
   app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
   });
